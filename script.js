@@ -1,6 +1,3 @@
-// Generate Random Scrambled Word:
-// Create an array of words.
-// Write a function to randomly select a word and scramble it.
 // Handle User Input:
 // Add event listeners to input fields to capture user input.
 // Automatically focus on the next input field after each letter is entered.
@@ -36,3 +33,19 @@ function generateRandomWord() {
 
   return scrambleWord(currentWord);
 }
+
+// for hanle latter key press
+
+const handleLatters = (e) => {
+  const alphabet = [];
+  for (let i = 97; i <= 122; i++) {
+    alphabet.push(String.fromCharCode(i));
+  }
+  if (alphabet.includes(e.key.toLowerCase())) {
+    console.log(e.key.toLowerCase());
+  }
+  return;
+};
+
+// Eventlisteners
+document.addEventListener('keypress', handleLatters);
