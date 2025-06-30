@@ -14,3 +14,13 @@
 // Show a '🎉 Success' alert when the user correctly guesses the word.
 
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
+
+function scrambleWord(word) {
+  // Scramble and return the scrambled word
+  let wordArr = word.split('');
+  for (let i = wordArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [wordArr[i], wordArr[j]] = [wordArr[j], wordArr[i]];
+  }
+  return wordArr.join('');
+}
