@@ -14,6 +14,8 @@
 // Show a '🎉 Success' alert when the user correctly guesses the word.
 
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
+let currentWord;
+//  scramble word  thats randomly generated
 
 function scrambleWord(word) {
   // Scramble and return the scrambled word
@@ -23,4 +25,14 @@ function scrambleWord(word) {
     [wordArr[i], wordArr[j]] = [wordArr[j], wordArr[i]];
   }
   return wordArr.join('');
+}
+
+// generate random scrambled word
+
+function generateRandomWord() {
+  // Generate and display scrambled word
+  const random = Math.floor(Math.random() * words.length);
+  currentWord = words[random];
+
+  return scrambleWord(currentWord);
 }
