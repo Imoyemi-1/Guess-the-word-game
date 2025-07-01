@@ -29,9 +29,45 @@ function scrambleWord(word) {
 function generateRandomWord() {
   // Generate and display scrambled word
   const random = Math.floor(Math.random() * words.length);
-  currentWord = words[random];
+  currentWord = words[0];
 
-  return scrambleWord(currentWord);
+  return currentWord;
+}
+
+console.log(generateRandomWord());
+// handle user input error
+
+function handleInput() {
+  // Handle input change event
+  currentWord = generateRandomWord();
+  let wrongGuess = '',
+    rightGuess = '',
+    index = 0;
+
+  const inputGuess = (letter) => {
+    if (letter === currentWord[index]) {
+      rightGuess += letter;
+      index++;
+    } else wrongGuess += letter;
+  };
+  const getWrongGuess = () => {
+    console.log(`wrong: ${wrongGuess}`);
+  };
+  const getRightGuess = () => {
+    console.log(`right: ${rightGuess}`);
+  };
+
+  return {
+    inputGuess,
+    getRightGuess,
+    getWrongGuess,
+  };
+}
+const inputValue = handleInput();
+
+function getGuess() {
+  inputValue.getRightGuess();
+  inputValue.getWrongGuess();
 }
 
 // for hanle latter key press
@@ -42,7 +78,8 @@ const handleLatters = (e) => {
     alphabet.push(String.fromCharCode(i));
   }
   if (alphabet.includes(e.key.toLowerCase())) {
-    console.log(e.key.toLowerCase());
+    inputValue.inputGuess(e.key.toLowerCase());
+    getGuess();
   }
   return;
 };
