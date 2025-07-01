@@ -12,6 +12,7 @@
 
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
 let currentWord;
+let mistakes = 0;
 //  scramble word  thats randomly generated
 
 function scrambleWord(word) {
@@ -48,7 +49,10 @@ function handleInput() {
     if (letter === currentWord[index]) {
       rightGuess += letter;
       index++;
-    } else wrongGuess += letter;
+    } else {
+      wrongGuess += letter;
+      mistakes++;
+    }
   };
   const getWrongGuess = () => {
     console.log(`wrong: ${wrongGuess}`);
