@@ -10,6 +10,9 @@
 // Success Alert:
 // Show a '🎉 Success' alert when the user correctly guesses the word.
 
+const displayWord = document.getElementById('scrambled-word');
+
+//
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
 let currentWord;
 let mistakes = 0;
@@ -30,12 +33,12 @@ function scrambleWord(word) {
 function generateRandomWord() {
   // Generate and display scrambled word
   const random = Math.floor(Math.random() * words.length);
-  currentWord = words[0];
+  currentWord = words[random];
 
+  displayWord.textContent = scrambleWord(currentWord);
   return currentWord;
 }
 
-console.log(generateRandomWord());
 // handle user input error
 
 function handleInput() {
@@ -90,3 +93,4 @@ const handleLatters = (e) => {
 
 // Eventlisteners
 document.addEventListener('keypress', handleLatters);
+generateRandomWord();
