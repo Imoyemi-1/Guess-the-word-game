@@ -14,6 +14,7 @@ const displayWord = document.getElementById('scrambled-word');
 const inputCons = document.getElementById('input-cons');
 const mistakeWord = document.getElementById('mistakes-word');
 const resetBtn = document.getElementById('reset-btn');
+const randomBtn = document.getElementById('random-btn');
 
 //
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
@@ -179,6 +180,12 @@ function resetGame() {
   displayTries();
 }
 
+function generateRandom() {
+  generateRandomWord();
+  createInputFields();
+  inputValue.reset();
+}
+
 // display tries
 function displayTries() {
   document.querySelector('#tries-txt span').textContent = tries;
@@ -197,5 +204,6 @@ function displayTries() {
 // Eventlisteners
 document.addEventListener('keypress', handleLatters);
 resetBtn.addEventListener('click', resetGame);
+randomBtn.addEventListener('click', generateRandom);
 generateRandomWord();
 createInputFields();
