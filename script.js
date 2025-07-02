@@ -18,6 +18,7 @@ const mistakeWord = document.getElementById('mistakes-word');
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
 let currentWord;
 let mistakes = 0;
+let tries = 0;
 //  scramble word  thats randomly generated
 
 function scrambleWord(word) {
@@ -46,6 +47,7 @@ function generateRandomWord() {
 function createInputFields() {
   // Create number of input fields according to the number of letters
   currentWord = generateRandomWord();
+  inputCons.innerHTML = '';
   for (let i = 1; i <= currentWord.length; i++) {
     const input = document.createElement('input');
     input.type = 'text';
@@ -84,6 +86,7 @@ function handleInput() {
   const inputGuess = (letter) => {
     if (letter === currentWord[index]) {
       rightGuess += letter;
+
       index++;
     } else {
       wrongGuess += letter;
@@ -103,10 +106,21 @@ function handleInput() {
     return rightGuess.length;
   };
 
+  const reset = () => {
+    document.querySelectorAll('input').forEach((item) => (item.value = ''));
+    handleFocusInput();
+    mistakeWord.textContent = '';
+    mistakes = 0;
+    wrongGuess = '';
+    rightGuess = '';
+    index = 0;
+  };
+
   return {
     inputGuess,
     getRightGuess,
     getWrongGuess,
+    reset,
   };
 }
 const inputValue = handleInput();
@@ -124,7 +138,6 @@ const handleLatters = (e) => {
   if (alphabet.includes(e.key.toLowerCase())) {
     inputValue.inputGuess(e.key.toLowerCase());
     if (e.key === currentWord[index]) {
-      console.log(e.key, currentWord[index], index);
       for (let i = 0; i < inputs.length; i++) {
         if (!inputs[i].value || inputs[i].value === '_') {
           inputs[i].value = e.key;
@@ -142,9 +155,23 @@ const handleLatters = (e) => {
 
 function resetGame() {
   if (mistakes >= 6) {
-    console.log('game over');
-  } else if (inputValue.getRightGuess() === currentWord.length) {
-    console.log('You won');
+    tries++;
+    inputValue.reset();
+    if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
+  }
+  if (inputValue.getRightGuess() === currentWord.length) {
+    alert("🎉 Success ! you're genius 🤩");
+    generateRandomWord();
+    createInputFields();
+    inputValue.reset();
+    tries = 0;
+  }
+  if (tries === 5) {
+    alert(`😥 You lost ! the word is ${currentWord}`);
+    generateRandomWord();
+    createInputFields();
+    inputValue.reset();
+    tries = 0;
   }
 }
 //
