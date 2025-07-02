@@ -1,15 +1,3 @@
-// Handle User Input:
-// Add event listeners to input fields to capture user input.
-// Automatically focus on the next input field after each letter is entered.
-// Track Wrong Answers:
-// Keep a counter for the number of wrong attempts.
-// Display wrong answers and update the counter.
-// Reset Game:
-// Add event listeners to the reset button to clear inputs, mistakes, and tries.
-// Reset the game when the number of tries or mistakes reaches 6.
-// Success Alert:
-// Show a '🎉 Success' alert when the user correctly guesses the word.
-
 const displayWord = document.getElementById('scrambled-word');
 const inputCons = document.getElementById('input-cons');
 const mistakeWord = document.getElementById('mistakes-word');
