@@ -11,6 +11,8 @@
 // Show a '🎉 Success' alert when the user correctly guesses the word.
 
 const displayWord = document.getElementById('scrambled-word');
+const inputCons = document.getElementById('input-cons');
+const mistakeWord = document.getElementById('mistakes-word');
 
 //
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
@@ -39,6 +41,20 @@ function generateRandomWord() {
   return currentWord;
 }
 
+// create input
+
+function createInputFields() {
+  // Create number of input fields according to the number of letters
+  currentWord = generateRandomWord();
+  for (let i = 1; i <= currentWord.length; i++) {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.maxLength = 1;
+    input.readOnly = true;
+    input.tabIndex = '-1';
+    inputCons.appendChild(input);
+  }
+}
 // handle user input error
 
 function handleInput() {
@@ -57,8 +73,14 @@ function handleInput() {
       mistakes++;
     }
   };
+
   const getWrongGuess = () => {
-    console.log(`wrong: ${wrongGuess}`);
+    const mistake = wrongGuess
+      .split('')
+      .map((word) => word)
+      .join(',');
+
+    mistakeWord.textContent = mistake;
   };
   const getRightGuess = () => {
     console.log(`right: ${rightGuess}`);
@@ -94,3 +116,4 @@ const handleLatters = (e) => {
 // Eventlisteners
 document.addEventListener('keypress', handleLatters);
 generateRandomWord();
+createInputFields();
