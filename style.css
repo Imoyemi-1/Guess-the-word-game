@@ -61,6 +61,7 @@ img {
 }
 
 #scramble-word-cons span {
+  margin-left: 0.825rem;
   font-weight: 400;
   font-size: 1.5rem;
   letter-spacing: 0.825rem;
