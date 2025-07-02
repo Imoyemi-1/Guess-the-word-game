@@ -51,9 +51,22 @@ function createInputFields() {
     input.type = 'text';
     input.maxLength = 1;
     input.readOnly = true;
-    input.tabIndex = '-1';
+    // input.tabIndex = '-1';
     inputCons.appendChild(input);
   }
+  handleFocusInput();
+}
+
+function handleFocusInput() {
+  const inputs = document.querySelectorAll('input');
+
+  const firstNotFocus = [...inputs].find(
+    (input) => input !== document.activeElement && input.value === ''
+  );
+
+  firstNotFocus.value = '_';
+  firstNotFocus.focus();
+  firstNotFocus.addEventListener('blur', () => firstNotFocus.focus());
 }
 // handle user input error
 
