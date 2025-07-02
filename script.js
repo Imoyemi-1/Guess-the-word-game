@@ -157,21 +157,39 @@ function resetGame() {
   if (mistakes >= 6) {
     tries++;
     inputValue.reset();
+    displayTries();
     if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
   }
   if (inputValue.getRightGuess() === currentWord.length) {
-    alert("🎉 Success ! you're genius 🤩");
     generateRandomWord();
     createInputFields();
     inputValue.reset();
     tries = 0;
+    displayTries();
+    alert("🎉 Success ! you're genius 🤩");
   }
   if (tries === 5) {
-    alert(`😥 You lost ! the word is ${currentWord}`);
     generateRandomWord();
     createInputFields();
     inputValue.reset();
     tries = 0;
+    displayTries();
+    alert(`😥 You lost ! the word is ${currentWord}`);
+  }
+}
+
+// display tries
+function displayTries() {
+  document.querySelector('#tries-txt span').textContent = tries;
+  const progress = document.querySelectorAll('#guess-progress .progress');
+
+  if (tries === 0) {
+    progress.forEach(
+      (item) => (item.style.backgroundColor = 'rgb(59, 66, 82)')
+    );
+  }
+  for (i = 0; i < tries; i++) {
+    progress[i].style.backgroundColor = 'rgb(123, 41, 208)';
   }
 }
 //
