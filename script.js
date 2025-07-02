@@ -119,10 +119,12 @@ const handleLatters = (e) => {
   for (let i = 97; i <= 122; i++) {
     alphabet.push(String.fromCharCode(i));
   }
+  let index = inputValue.getRightGuess();
 
   if (alphabet.includes(e.key.toLowerCase())) {
     inputValue.inputGuess(e.key.toLowerCase());
-    if (e.key === currentWord[inputValue.getRightGuess() - 1]) {
+    if (e.key === currentWord[index]) {
+      console.log(e.key, currentWord[index], index);
       for (let i = 0; i < inputs.length; i++) {
         if (!inputs[i].value || inputs[i].value === '_') {
           inputs[i].value = e.key;
@@ -139,8 +141,10 @@ const handleLatters = (e) => {
 };
 
 function resetGame() {
-  if (mistakes > 6) {
+  if (mistakes >= 6) {
     console.log('game over');
+  } else if (inputValue.getRightGuess() === currentWord.length) {
+    console.log('You won');
   }
 }
 //
