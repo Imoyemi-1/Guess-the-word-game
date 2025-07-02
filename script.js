@@ -59,6 +59,7 @@ function handleFocusInput() {
 
   firstNotFocus.value = '_';
   firstNotFocus.focus();
+  firstNotFocus.readOnly = false;
   firstNotFocus.addEventListener('blur', () => firstNotFocus.focus());
 }
 // handle user input error
