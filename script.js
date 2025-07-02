@@ -60,9 +60,13 @@ function createInputFields() {
 function handleFocusInput() {
   const inputs = document.querySelectorAll('input');
 
-  const firstNotFocus = [...inputs].find(
-    (input) => input !== document.activeElement && input.value === ''
-  );
+  for (let i = 0; i <= inputs.length; i++) {
+    if (!inputs[i]) return;
+    if (!inputs[i].value && inputs[i].value !== '_') {
+      firstNotFocus = inputs[i];
+      break;
+    }
+  }
 
   firstNotFocus.value = '_';
   firstNotFocus.focus();
@@ -107,21 +111,27 @@ function handleInput() {
 }
 const inputValue = handleInput();
 
-function getGuess() {
-  inputValue.getRightGuess();
-  inputValue.getWrongGuess();
+function rightGuess() {
+  const inputs = document.querySelectorAll('input');
 }
 
 // for hanle latter key press
 
 const handleLatters = (e) => {
+  const inputs = document.querySelectorAll('input');
   const alphabet = [];
   for (let i = 97; i <= 122; i++) {
     alphabet.push(String.fromCharCode(i));
   }
   if (alphabet.includes(e.key.toLowerCase())) {
     inputValue.inputGuess(e.key.toLowerCase());
-    getGuess();
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].value || inputs[i].value === '_') {
+        inputs[i].value = e.key;
+        break;
+      }
+    }
+    handleFocusInput();
   }
   return;
 };
