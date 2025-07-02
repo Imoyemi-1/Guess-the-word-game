@@ -13,6 +13,7 @@
 const displayWord = document.getElementById('scrambled-word');
 const inputCons = document.getElementById('input-cons');
 const mistakeWord = document.getElementById('mistakes-word');
+const resetBtn = document.getElementById('reset-btn');
 
 //
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
@@ -148,12 +149,12 @@ const handleLatters = (e) => {
     } else {
       inputValue.getWrongGuess();
     }
-    resetGame();
+    resetLogic();
   }
   return;
 };
 
-function resetGame() {
+function resetLogic() {
   if (mistakes >= 6) {
     tries++;
     inputValue.reset();
@@ -161,21 +162,21 @@ function resetGame() {
     if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
   }
   if (inputValue.getRightGuess() === currentWord.length) {
-    generateRandomWord();
-    createInputFields();
-    inputValue.reset();
-    tries = 0;
-    displayTries();
+    resetGame();
     alert("🎉 Success ! you're genius 🤩");
   }
   if (tries === 5) {
-    generateRandomWord();
-    createInputFields();
-    inputValue.reset();
-    tries = 0;
-    displayTries();
+    resetGame();
     alert(`😥 You lost ! the word is ${currentWord}`);
   }
+}
+
+function resetGame() {
+  generateRandomWord();
+  createInputFields();
+  inputValue.reset();
+  tries = 0;
+  displayTries();
 }
 
 // display tries
@@ -195,5 +196,6 @@ function displayTries() {
 //
 // Eventlisteners
 document.addEventListener('keypress', handleLatters);
+resetBtn.addEventListener('click', resetGame);
 generateRandomWord();
 createInputFields();
