@@ -100,7 +100,7 @@ function handleInput() {
     mistakeWord.textContent = mistake;
   };
   const getRightGuess = () => {
-    console.log(`right: ${rightGuess}`);
+    return rightGuess.length;
   };
 
   return {
@@ -111,10 +111,6 @@ function handleInput() {
 }
 const inputValue = handleInput();
 
-function rightGuess() {
-  const inputs = document.querySelectorAll('input');
-}
-
 // for hanle latter key press
 
 const handleLatters = (e) => {
@@ -123,19 +119,31 @@ const handleLatters = (e) => {
   for (let i = 97; i <= 122; i++) {
     alphabet.push(String.fromCharCode(i));
   }
+
   if (alphabet.includes(e.key.toLowerCase())) {
     inputValue.inputGuess(e.key.toLowerCase());
-    for (let i = 0; i < inputs.length; i++) {
-      if (!inputs[i].value || inputs[i].value === '_') {
-        inputs[i].value = e.key;
-        break;
+    if (e.key === currentWord[inputValue.getRightGuess() - 1]) {
+      for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].value || inputs[i].value === '_') {
+          inputs[i].value = e.key;
+          break;
+        }
       }
+      handleFocusInput();
+    } else {
+      inputValue.getWrongGuess();
     }
-    handleFocusInput();
+    resetGame();
   }
   return;
 };
 
+function resetGame() {
+  if (mistakes > 6) {
+    console.log('game over');
+  }
+}
+//
 // Eventlisteners
 document.addEventListener('keypress', handleLatters);
 generateRandomWord();
