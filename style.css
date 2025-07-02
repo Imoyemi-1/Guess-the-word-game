@@ -141,6 +141,8 @@ img {
   transition: transform 0.2s ease;
 }
 
-#btn-cons > button:hover {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  #btn-cons > button:hover {
+    transform: translateY(-1px);
+  }
 }
