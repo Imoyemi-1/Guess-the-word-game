@@ -29,21 +29,18 @@ function generateRandomWord() {
   currentWord = words[random];
 
   displayWord.textContent = scrambleWord(currentWord);
-  return currentWord;
 }
 
 // create input
 
 function createInputFields() {
   // Create number of input fields according to the number of letters
-  currentWord = generateRandomWord();
   inputCons.innerHTML = '';
   for (let i = 1; i <= currentWord.length; i++) {
     const input = document.createElement('input');
     input.type = 'text';
     input.maxLength = 1;
     input.readOnly = true;
-    // input.tabIndex = '-1';
     inputCons.appendChild(input);
   }
   handleFocusInput();
@@ -68,7 +65,6 @@ function handleFocusInput() {
 
 function handleInput() {
   // Handle input change event
-  currentWord = generateRandomWord();
   let wrongGuess = '',
     rightGuess = '',
     index = 0;
