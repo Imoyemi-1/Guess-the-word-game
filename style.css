@@ -106,7 +106,7 @@ img {
 }
 
 #input-cons > input {
-  max-width: 2rem;
+  max-width: 2.2rem;
   height: 2rem;
   background: transparent;
   border: none;
@@ -114,6 +114,7 @@ img {
   text-align: center;
   box-shadow: 0 0 0 1.5px rgb(71, 81, 99);
   font-weight: 500;
+  pointer-events: none;
 }
 
 #input-cons > input:focus {
