@@ -121,6 +121,7 @@ img {
 #input-cons > input:focus {
   outline: none;
   box-shadow: 0 0 0 1.5px rgb(112, 36, 128);
+  pointer-events: auto;
 }
 
 #btn-cons {
