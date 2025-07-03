@@ -3,12 +3,16 @@ const inputCons = document.getElementById('input-cons');
 const mistakeWord = document.getElementById('mistakes-word');
 const resetBtn = document.getElementById('reset-btn');
 const randomBtn = document.getElementById('random-btn');
+const modal = document.querySelector('.modal');
+const modalMessage = document.querySelector('.modal #message');
+const closeModalBtn = document.querySelector('#close-modal');
 
 //
 const words = ['colors', 'javascript', 'assuring', 'challenge', 'pathway'];
 let currentWord;
 let mistakes = 0;
 let tries = 0;
+let openModal = false;
 //  scramble word  thats randomly generated
 
 function scrambleWord(word) {
@@ -144,19 +148,20 @@ const handleLetters = (e) => {
   }
 };
 
-function resetLogic() {
+async function resetLogic() {
   if (mistakes >= 6) {
     tries++;
-    if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
+    if (tries < 5)
+      await showAlert(`Oops 😥! Try again you have ${5 - tries} tries left`);
     inputValue.reset();
     displayTries();
   }
   if (inputValue.getRightGuess() === currentWord.length) {
-    alert("🎉 Success ! you're genius 🤩");
+    await showAlert("🎉 Success ! you're genius 🤩");
     resetGame();
   }
   if (tries === 5) {
-    alert(`😥 You lost ! the word is ${currentWord}`);
+    await showAlert(`😥 You lost ! the word is ${currentWord}`);
     resetGame();
   }
 }
@@ -189,9 +194,27 @@ function displayTries() {
     progress[i].style.backgroundColor = 'rgb(123, 41, 208)';
   }
 }
-//
+
+// open modal
+function showAlert(message) {
+  return new Promise((resolve) => {
+    openModal = true;
+    modalMessage.textContent = message;
+    modal.classList.remove('hidden');
+
+    closeModalBtn.addEventListener('click', () => {
+      openModal = false;
+      modal.classList.add('hidden');
+      resolve();
+    });
+  });
+}
+
 // Eventlistener
-document.addEventListener('keydown', handleLetters);
+document.addEventListener('keydown', (e) => {
+  if (openModal) return;
+  handleLetters(e);
+});
 resetBtn.addEventListener('click', resetGame);
 randomBtn.addEventListener('click', generateRandom);
 generateRandomWord();
