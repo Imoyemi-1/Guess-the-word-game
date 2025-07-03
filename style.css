@@ -31,6 +31,7 @@ body {
   background-size: cover;
   color: rgb(248, 252, 255);
   padding: 10px;
+  overflow: hidden;
 }
 
 .container {
@@ -142,6 +143,89 @@ img {
   transition: transform 0.2s ease;
 }
 
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+}
+.hidden {
+  display: none;
+}
+.modal-content {
+  padding: 1.5rem;
+  margin-top: 3px;
+  background-color: rgb(31, 31, 31);
+  height: 170px;
+  width: 32rem;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1.5px rgb(58, 57, 57);
+  animation: slideIn 0.3s ease-in;
+}
+
+#close-modal {
+  float: right;
+  margin-top: 60px;
+  background-color: rgb(167, 192, 234);
+  border-radius: 20px;
+  padding: 5px 25px;
+  color: rgb(31, 31, 31);
+  font-size: 1.2rem;
+  border: none;
+  outline: 3px solid rgb(167, 192, 234);
+  outline-offset: 3px;
+}
+
+@keyframes slideIn {
+  0% {
+    margin-top: -180px;
+    opacity: 0;
+  }
+  100% {
+    margin-top: 0;
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  @keyframes slideIn {
+    0% {
+      margin-top: 0;
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      margin-top: 0;
+      opacity: 1;
+    }
+  }
+  .modal {
+    align-items: center;
+    padding: 0 10px;
+  }
+  .modal-content {
+    padding: 1.5rem;
+    height: 130px;
+    width: 32rem;
+    border-radius: 10px;
+  }
+
+  #close-modal {
+    margin-top: 35px;
+    padding: 0px 25px;
+    font-size: 1rem;
+    outline: none;
+    outline-offset: 0;
+  }
+}
 @media (hover: hover) {
   #btn-cons > button:hover {
     transform: translateY(-1px);
