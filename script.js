@@ -56,10 +56,13 @@ function handleFocusInput() {
       break;
     }
   }
+  inputs.forEach((item) => (item.readOnly = true));
 
   firstNotFocus.value = '_';
-  firstNotFocus.focus();
   firstNotFocus.readOnly = false;
+  firstNotFocus.focus();
+  firstNotFocus.click();
+
   firstNotFocus.addEventListener('blur', () => firstNotFocus.focus());
 }
 // handle user input error
@@ -112,9 +115,9 @@ function handleInput() {
 }
 const inputValue = handleInput();
 
-// for hanle latter key press
+// for handle latter key press
 
-const handleLatters = (e) => {
+const handleLetters = (e) => {
   const inputs = document.querySelectorAll('input');
   const alphabet = [];
   for (let i = 97; i <= 122; i++) {
@@ -122,12 +125,14 @@ const handleLatters = (e) => {
   }
   let index = inputValue.getRightGuess();
 
-  if (alphabet.includes(e.key.toLowerCase())) {
+  if (!alphabet.includes(e.key.toLowerCase())) {
+    e.preventDefault();
+  } else {
     inputValue.inputGuess(e.key.toLowerCase());
-    if (e.key === currentWord[index]) {
+    if (e.key.toLowerCase() === currentWord[index]) {
       for (let i = 0; i < inputs.length; i++) {
         if (!inputs[i].value || inputs[i].value === '_') {
-          inputs[i].value = e.key;
+          inputs[i].value = e.key.toLowerCase();
           break;
         }
       }
@@ -137,23 +142,22 @@ const handleLatters = (e) => {
     }
     resetLogic();
   }
-  return;
 };
 
 function resetLogic() {
   if (mistakes >= 6) {
     tries++;
+    if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
     inputValue.reset();
     displayTries();
-    if (tries < 5) alert(`Oops 😥! Try again you have ${5 - tries} tries left`);
   }
   if (inputValue.getRightGuess() === currentWord.length) {
-    resetGame();
     alert("🎉 Success ! you're genius 🤩");
+    resetGame();
   }
   if (tries === 5) {
-    resetGame();
     alert(`😥 You lost ! the word is ${currentWord}`);
+    resetGame();
   }
 }
 
@@ -186,8 +190,8 @@ function displayTries() {
   }
 }
 //
-// Eventlisteners
-document.addEventListener('keypress', handleLatters);
+// Eventlistener
+document.addEventListener('keydown', handleLetters);
 resetBtn.addEventListener('click', resetGame);
 randomBtn.addEventListener('click', generateRandom);
 generateRandomWord();
