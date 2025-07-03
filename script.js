@@ -60,14 +60,20 @@ function handleFocusInput() {
       break;
     }
   }
-  inputs.forEach((item) => (item.readOnly = true));
+  inputs.forEach((item) => {
+    item.readOnly = true;
+    item.removeAttribute('id');
+  });
 
   firstNotFocus.value = '_';
+  firstNotFocus.setAttribute('id', 'focused');
   firstNotFocus.readOnly = false;
   firstNotFocus.focus();
   firstNotFocus.click();
 
-  firstNotFocus.addEventListener('blur', () => firstNotFocus.focus());
+  firstNotFocus.addEventListener('blur', () => {
+    if (!openModal) firstNotFocus.focus();
+  });
 }
 // handle user input error
 
@@ -150,6 +156,9 @@ const handleLetters = (e) => {
 
 async function resetLogic() {
   if (mistakes >= 6) {
+    openModal = true;
+    if (document.activeElement.tagName === 'INPUT')
+      document.activeElement.blur();
     tries++;
     if (tries < 5)
       await showAlert(`Oops 😥! Try again you have ${5 - tries} tries left`);
@@ -157,10 +166,16 @@ async function resetLogic() {
     displayTries();
   }
   if (inputValue.getRightGuess() === currentWord.length) {
+    openModal = true;
+    if (document.activeElement.tagName === 'INPUT')
+      document.activeElement.blur();
     await showAlert("🎉 Success ! you're genius 🤩");
     resetGame();
   }
   if (tries === 5) {
+    openModal = true;
+    if (document.activeElement.tagName === 'INPUT')
+      document.activeElement.blur();
     await showAlert(`😥 You lost ! the word is ${currentWord}`);
     resetGame();
   }
@@ -198,7 +213,6 @@ function displayTries() {
 // open modal
 function showAlert(message) {
   return new Promise((resolve) => {
-    openModal = true;
     modalMessage.textContent = message;
     modal.classList.remove('hidden');
 
