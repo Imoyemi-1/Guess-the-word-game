@@ -1,3 +1,5 @@
+'use strict';
+
 const displayWord = document.getElementById('scrambled-word');
 const inputCons = document.getElementById('input-cons');
 const mistakeWord = document.getElementById('mistakes-word');
@@ -13,6 +15,7 @@ let currentWord;
 let mistakes = 0;
 let tries = 0;
 let openModal = false;
+let firstNotFocus;
 //  scramble word  thats randomly generated
 
 function scrambleWord(word) {
