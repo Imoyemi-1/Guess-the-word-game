@@ -208,7 +208,7 @@ function displayTries() {
       (item) => (item.style.backgroundColor = 'rgb(59, 66, 82)')
     );
   }
-  for (i = 0; i < tries; i++) {
+  for (let i = 0; i < tries; i++) {
     progress[i].style.backgroundColor = 'rgb(123, 41, 208)';
   }
 }
